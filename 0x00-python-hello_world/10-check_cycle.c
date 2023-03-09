@@ -1,31 +1,30 @@
-#include <stdlib.h>
-#include "lists.h"
+/* Definition for singly-linked list. */
+struct listint_s {
+    int n;
+    struct listint_s *next;
+};
+
+typedef struct listint_s listint_t;
 
 /**
- * check_cycle - Checks if a singly-linked list contains a cycle.
- * @list: A singly-linked list.
+ * check_cycle - Check if a singly-linked list has a cycle in it.
+ * @list: Pointer to the head of the list.
  *
- * Return: If there is no cycle - 0.
- *         If there is a cycle - 1.
+ * Return: 1 if there is a cycle, 0 otherwise.
  */
 int check_cycle(listint_t *list)
 {
-	listint_t *slow, *fast;
+    listint_t *slow = list, *fast = list;
 
-	if (list == NULL || list->next == NULL)
-		return (0);
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        if (slow == fast) {
+            /* Cycle detected. */
+            return 1;
+        }
+    }
 
-	slow = list->next;
-	fast = list->next->next;
-
-	while (slow && fast && fast->next)
-	{
-		if (slow == fast)
-			return (1);
-
-		slow = slow->next;
-		fast = fast->next->next;
-	}
-
-	return (0);
+    /* No cycle detected. */
+    return 0;
 }
