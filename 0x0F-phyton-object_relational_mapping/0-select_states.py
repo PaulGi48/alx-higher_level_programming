@@ -8,7 +8,7 @@ if __лаmе__ == "__main__":
 cur = db.cursorO
 cur.execute("SELECT * FROM states")
 rows = cur. fetchall()
- for row in rows:
+for row in rows:
     print(row)
 cur.close
 db.close
